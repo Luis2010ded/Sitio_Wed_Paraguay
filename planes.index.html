@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Planes - Sitios Web Paraguay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-principal: #003399;
+            --azul-oscuro: #001a4d;
+            --azul-claro: #00a8ff;
+            --blanco: #ffffff;
+            --verde-wa: #25d366;
+            --violeta-iconos: #2b1a7d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background-color: var(--azul-oscuro);
+            color: var(--blanco);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR (Igual al inicio) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 84%;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo img { height: 100px; }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--azul-claro); }
+
+        /* --- SECCIÓN TÍTULO --- */
+        .seccion-titulo {
+            text-align: center;
+            padding: 180px 20px 80px 20px; /* Más padding arriba por el header fijo */
+            background: radial-gradient(circle at center, #003399 0%, #001a4d 100%);
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .seccion-titulo h1 { font-size: 3.5rem; text-transform: uppercase; margin: 0; font-weight: 900; }
+        .seccion-titulo p { font-size: 1.2rem; opacity: 0.8; margin-top: 10px; }
+
+        /* --- TARJETAS DE PLANES --- */
+        .planes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            padding: 60px 10%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            opacity: 0; /* Para la animación de JS */
+            transform: translateY(30px);
+        }
+
+        .plan-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--azul-claro);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .plan-card.recomendado {
+            border: 2px solid var(--azul-claro);
+            background: rgba(0, 168, 255, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .plan-card.recomendado:hover { transform: scale(1.05) translateY(-15px); }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--azul-claro);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* ESTILO DE ICONOS GRANDES */
+        .icon-container {
+            background: var(--violeta-iconos);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .icon-container i { color: white; font-size: 2.2rem; }
+
+        .plan-card h3 { color: var(--azul-claro); font-size: 2rem; margin: 10px 0; }
+        .precio { font-size: 2.5rem; font-weight: bold; margin: 20px 0; color: #fff; }
+        .precio span { font-size: 1.1rem; opacity: 0.6; }
+
+        .lista-items {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .lista-items li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+        }
+
+        .lista-items li i { color: var(--azul-claro); margin-right: 12px; font-size: 1.2rem; }
+
+        .btn-comprar {
+            display: block;
+            border: 2px solid white;
+            color: white;
+            padding: 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-comprar:hover { background: white; color: var(--azul-oscuro); }
+
+        /* WHATSAPP FLOTANTE */
+        .wa-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--verde-wa);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        
+        .wa-float:hover { transform: scale(1.1); }
+
+        /* ANIMACIONES */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="imagen_logo.png" alt="Sitios Web Paraguay">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="planes.index.html" style="color: var(--azul-claro);">Planes</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="https://wa.me/595981752804" target="_blank">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="seccion-titulo">
+        <h1>Nuestros Planes</h1>
+        <p>Soluciones digitales a medida para emprendedores de PJC y todo Paraguay.</p>
+    </div>
+
+    <div class="planes-container">
+        <!-- Tarjeta Emprendedor -->
+        <div class="plan-card">
+            <div class="icon-container"><i class="fas fa-rocket"></i></div>
+            <h3>Emprendedor</h3>
+            <div class="precio">Gs. 500.000 <span>/ único</span></div>
+            <ul class="lista-items">
+                <li><i class="fas fa-check"></i> 1 Página Web (Landing)</li>
+                <li><i class="fas fa-check"></i> Botón de WhatsApp</li>
+                <li><i class="fas fa-check"></i> SEO Básico</li>
+                <li><i class="fas fa-check"></i> Hosting x 1 Año</li>
+            </ul>
+            <a href="https://wa.me/595981752804?text=Hola!%20Me%20interesa%20el%20Plan%20Emprendedor" class="btn-comprar">Me interesa</a>
+        </div>
+
+        <!-- Tarjeta Pyme Pro -->
+        <div class="plan-card recomendado">
+            <div class="badge">MÁS ELEGIDO</div>
+            <div class="icon-container"><i class="fas fa-briefcase"></i></div>
+            <h3>Pyme Pro</h3>
+            <div class="precio">Gs. 1.200.000 <span>/ único</span></div>
+            <ul class="lista-items">
+                <li><i class="fas fa-check"></i> Hasta 5 Secciones</li>
+                <li><i class="fas fa-check"></i> SEO Avanzado (Google)</li>
+                <li><i class="fas fa-check"></i> Soporte Técnico Full</li>
+                <li><i class="fas fa-check"></i> Correos Corporativos</li>
+            </ul>
+            <a href="https://wa.me/595981752804?text=Hola!%20Me%20interesa%20el%20Plan%20Pyme%20Pro" class="btn-comprar" style="background: white; color: var(--azul-oscuro);">Lo quiero</a>
+        </div>
+
+        <!-- Tarjeta Empresa Full -->
+        <div class="plan-card">
+            <div class="icon-container"><i class="fas fa-shopping-cart"></i></div>
+            <h3>Empresa Full</h3>
+            <div class="precio">Gs. 3.000.000 <span>/ único</span></div>
+            <ul class="lista-items">
+                <li><i class="fas fa-check"></i> Tienda Online Completa</li>
+                <li><i class="fas fa-check"></i> Pasarela de Pagos</li>
+                <li><i class="fas fa-check"></i> Gestión de Inventario</li>
+                <li><i class="fas fa-check"></i> Capacitación de Uso</li>
+            </ul>
+            <a href="https://wa.me/595981752804?text=Hola!%20Me%20interesa%20el%20Plan%20Empresa%20Full" class="btn-comprar">Consultar</a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/595981752804" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Animación al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.plan-card').forEach((card) => observer.observe(card));
+    </script>
+
+</body>
+</html>

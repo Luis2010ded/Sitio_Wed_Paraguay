@@ -1,0 +1,50 @@
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+    position: relative;
+    overflow: hidden;
+    /* Fondo base azul oscuro */
+    background: radial-gradient(circle at center, #003399 0%, #001a4d 100%);
+}
+
+/* LA IMAGEN DE CIRCUITOS CON ANIMACIÓN */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Más ancho para que pueda desplazarse */
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/cz-nm-circuit.png');
+    background-size: 500px;
+    opacity: 0.3;
+    /* Aquí le damos el movimiento de corriente */
+    animation: corrienteCircuitos 40s linear infinite;
+    pointer-events: none;
+}
+
+/* EFECTO DE LUZ QUE RECORRE LA PANTALLA */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 168, 255, 0.1), transparent);
+    animation: brilloEscaneo 6s infinite;
+}
+
+/* DEFINICIÓN DE LOS MOVIMIENTOS */
+@keyframes corrienteCircuitos {
+    from { transform: translateX(0); }
+    to { transform: translateX(-500px); }
+}
+
+@keyframes brilloEscaneo {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}

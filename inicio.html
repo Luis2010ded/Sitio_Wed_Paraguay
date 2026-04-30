@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitios Web Paraguay | Inicio</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --azul-fondo: #001a4d;
+            --azul-brillo: #00a8ff;
+            --blanco: #ffffff;
+            --gris-claro: #f4f4f4;
+            --violeta-iconos: #2b1a7d;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--azul-fondo);
+            color: var(--blanco);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 90%; /* Ajustado para evitar desborde */
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo-nav img { height: 60px; } /* Logo más pequeño en general */
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row; /* Default para PC */
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px 10% 0 10%;
+            position: relative;
+            background: radial-gradient(circle at 75% 50%, #003399 0%, #001a4d 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 200%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/cz-nm-circuit.png');
+            background-size: 400px;
+            opacity: 0.2;
+            animation: movimientoCircuitos 50s linear infinite;
+        }
+
+        .hero-text { z-index: 10; animation: fadeInLeft 1.2s ease-out; max-width: 600px; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1; margin: 0; font-weight: 900; }
+        .hero-text p { font-size: 1.2rem; margin-top: 15px; }
+        
+        .btn-principal {
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .hero-image-container img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 35px rgba(0, 168, 255, 0.4));
+            animation: flotar 4s ease-in-out infinite, fadeInRight 1.5s ease-out;
+            z-index: 10;
+        }
+
+        /* --- SECCIÓN QUÉ NOS CARACTERIZA --- */
+        .que-hacemos {
+            padding: 60px 5%;
+            background-color: var(--gris-claro);
+            color: #333;
+            text-align: center;
+        }
+
+        .titulo-seccion h2 { font-size: 2rem; color: #000; margin-bottom: 10px; }
+        .logo-seccion { height: 60px; margin-bottom: 40px; }
+
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-servicio {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column; /* Cambiado a columna para mejor lectura en móvil */
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .card-servicio.visible { opacity: 1; transform: translateY(0); }
+
+        .icon-container {
+            background: var(--violeta-iconos);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .icon-container i { color: white; font-size: 1.8rem; }
+        .info h3 { margin: 0 0 10px 0; color: var(--violeta-iconos); font-size: 1.2rem; }
+        .info p { font-size: 0.9rem; line-height: 1.4; color: #555; }
+
+        /* --- MEDIA QUERIES (AJUSTES PARA CELULAR) --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 2%;
+                width: 96%;
+            }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.75rem; }
+            .logo-nav img { height: 40px; }
+
+            .hero {
+                flex-direction: column; /* Texto arriba, imagen abajo */
+                text-align: center;
+                padding-top: 120px;
+                justify-content: center;
+            }
+
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text p { font-size: 1rem; }
+            
+            .hero-image-container img {
+                max-width: 250px; /* Imagen más pequeña en móvil */
+                margin-top: 40px;
+            }
+
+            .grid-servicios {
+                grid-template-columns: 1fr; /* Una sola columna en móvil */
+            }
+        }
+
+        /* ANIMACIONES */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes movimientoCircuitos { from { background-position: 0 0; } to { background-position: -800px 800px; } }
+        @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-nav"><img src="imagen_logo.png" alt="Logo Nav"></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="planes.index.html">Planes</a></li>
+                <li><a href="https://wa.me/595981752804" target="_blank">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>PÁGINA WEB<br>PARAGUAY</h1>
+            <p>Soluciones digitales para pymes y emprendedores en Pedro Juan Caballero.</p>
+            <a href="planes.index.html" class="btn-principal">Elige tu plan</a>
+        </div>
+        <div class="hero-image-container">
+            <img src="imagen_logo.png" alt="Sitios Web Paraguay">
+        </div>
+    </section>
+
+    <section class="que-hacemos">
+        <div class="titulo-seccion">
+            <h2>Qué nos caracteriza</h2>
+            <img src="imagen_logo.png" alt="Logo Central" class="logo-seccion">
+        </div>
+
+        <div class="grid-servicios">
+            <!-- Las tarjetas ahora se apilan en el celular gracias al CSS -->
+            <div class="card-servicio">
+                <div class="icon-container"><i class="fas fa-layer-group"></i></div>
+                <div class="info">
+                    <h3>Dominio Web</h3>
+                    <p>Dominio incluido: .com, .net, o .com.py, a tu nombre.</p>
+                </div>
+            </div>
+            <div class="card-servicio">
+                <div class="icon-container"><i class="fas fa-server"></i></div>
+                <div class="info">
+                    <h3>Hosting Ilimitado</h3>
+                    <p>Transferencia ilimitada para disponibilidad 24/7.</p>
+                </div>
+            </div>
+            <div class="card-servicio">
+                <div class="icon-container"><i class="fas fa-laptop-code"></i></div>
+                <div class="info">
+                    <h3>Responsive Design</h3>
+                    <p>Tu sitio se verá perfecto en celulares y tablets.</p>
+                </div>
+            </div>
+            <div class="card-servicio">
+                <div class="icon-container"><i class="fas fa-shield-alt"></i></div>
+                <div class="info">
+                    <h3>SSL Seguro</h3>
+                    <p>Certificados HTTPS para proteger a tus clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card-servicio').forEach((card) => observer.observe(card));
+    </script>
+
+</body>
+</html>
