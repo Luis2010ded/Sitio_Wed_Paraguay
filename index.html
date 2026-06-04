@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitios Web Paraguay | Luis Anibal Aguilera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --azul-fondo: #001a4d;
+            --azul-footer: #0a002e;
+            --azul-brillo: #00a8ff;
+            --blanco: #ffffff;
+            --gris-claro: #f4f4f4;
+            --violeta-iconos: #2b1a7d;
+            --whatsapp-green: #25d366;
+        }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--azul-fondo); color: var(--blanco); overflow-x: hidden; width: 100%; }
+
+        /* --- NAVBAR --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: rgba(0, 0, 0, 0.8);
+            position: fixed; width: 100%; box-sizing: border-box; top: 0; left: 0;
+            z-index: 1000; backdrop-filter: blur(8px);
+        }
+        .brand-name { font-size: 1.2rem; font-weight: 900; tracking-spacing: 1px; color: var(--blanco); text-transform: uppercase; }
+        .brand-name span { color: var(--azul-brillo); }
+        .nav-links { list-style: none; display: flex; gap: 20px; padding: 0; margin: 0; }
+        .nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--azul-brillo); }
+
+        /* --- HERO (LIMPIO Y FACHERO) --- */
+        .hero {
+            min-height: 70vh; display: flex; justify-content: center; align-items: center;
+            padding: 140px 10% 60px 10%; position: relative;
+            background: radial-gradient(circle at 50% 50%, #003399 0%, #001a4d 100%);
+            overflow: hidden; box-sizing: border-box; text-align: center;
+        }
+        .hero-text { z-index: 10; max-width: 750px; width: 100%; animation: fadeInUp 0.8s ease-out forwards; }
+        .hero-text h1 { font-size: clamp(2.5rem, 7vw, 4rem); line-height: 1.1; margin: 0; font-weight: 900; }
+        .hero-text p { font-size: 1.2rem; margin: 20px 0 30px 0; color: #e0e0e0; }
+        
+        .badge-24h {
+            display: inline-block; background: #32ff7e; color: #001a4d; padding: 6px 15px;
+            border-radius: 50px; font-weight: bold; font-size: 0.9rem; margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(50, 255, 126, 0.5);
+        }
+
+        .btn-comenzar {
+            display: inline-block; background-color: var(--azul-brillo); color: white;
+            padding: 15px 35px; border-radius: 50px; text-decoration: none;
+            font-weight: bold; font-size: 1rem; text-transform: uppercase;
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4);
+            cursor: pointer;
+        }
+        .btn-comenzar:hover { transform: scale(1.05); background-color: #0086cc; }
+
+        /* --- SERVICIOS --- */
+        .que-ofrecemos { padding: 80px 5%; background-color: var(--blanco); color: #333; text-align: center; }
+        .que-ofrecemos h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--azul-fondo); margin-bottom: 40px; font-weight: 800; }
+        .grid-detalles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .grid-detalles h3 { margin-top: 0; }
+        .item-detalle { padding: 30px; border: 1px solid #eee; border-radius: 12px; transition: 0.4s; background: #fff; }
+        .item-detalle:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .item-detalle i { font-size: 3rem; color: var(--azul-brillo); margin-bottom: 20px; }
+
+        /* --- CARACTERÍSTICAS --- */
+        .que-hacemos { padding: 80px 5%; background-color: var(--gris-claro); color: #333; text-align: center; }
+        .grid-servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1300px; margin: 0 auto; }
+        .grid-servicios h3 { margin-top: 0; }
+        .card-servicio { background: white; padding: 30px; border-radius: 8px; display: flex; align-items: flex-start; text-align: left; gap: 20px; transition: 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .card-servicio:hover { transform: scale(1.02); }
+        .icon-container { background: var(--violeta-iconos); min-width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+        .icon-container i { color: white; font-size: 1.8rem; }
+
+        /* --- SECCIÓN DEL FORMULARIO (ABAJO DEL TODO) --- */
+        .seccion-pedido {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #001a4d 0%, #000c24 100%);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .seccion-pedido h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        .seccion-pedido p {
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+        .form-compra-abajo {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-size: 0.85rem;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input, .form-group textarea {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 14px;
+            color: white;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--azul-brillo);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 12px rgba(0, 168, 255, 0.4);
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        .btn-enviar-pedido {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(35, 134, 54, 0.4);
+        }
+        .btn-enviar-pedido:hover {
+            background-color: #2ea44f;
+            transform: translateY(-2px);
+        }
+
+        /* --- BLOG ACORDEÓN --- */
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 5px; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 12px 0; transition: 0.3s; font-weight: bold; }
+        .faq-question:hover { color: var(--azul-brillo); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.85rem; opacity: 0; line-height: 1.4; text-align: left; }
+        .faq-item.active .faq-answer { max-height: 150px; opacity: 1; padding-bottom: 15px; }
+        .faq-item.active i { transform: rotate(180deg); color: var(--azul-brillo); }
+        .faq-question i { transition: transform 0.4s; font-size: 0.8rem; }
+
+        /* --- FOOTER & PAGOS --- */
+        .main-footer { background-color: var(--azul-footer); padding: 60px 8% 40px 8%; color: white; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .footer-grid h4 { margin-top: 0; margin-bottom: 20px; color: var(--azul-brillo); }
+        
+        .dev-card { margin-top: 25px; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; max-width: 300px; }
+        .dev-img { width: 50px; height: 50px; border-radius: 50%; background-color: #555; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 1px solid #777; }
+        .dev-img i { font-size: 35px; color: #ccc; margin-top: 8px; }
+
+        .pagos-container { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .pagos-container h5 { margin-top: 0; margin-bottom: 15px; font-size: 1rem; }
+        .metodos-pago { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+        .metodos-pago img.mango-logo { max-height: 90px; transition: 0.3s; filter: none; opacity: 1; }
+        .metodos-pago img.mango-logo:hover { transform: scale(1.1); }
+
+        .btn-whatsapp { position: fixed; bottom: 20px; right: 20px; background: var(--whatsapp-green); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; z-index: 2000; text-decoration: none; transition: 0.3s; }
+        .btn-whatsapp:hover { transform: scale(1.1); }
+        
+        @media (max-width: 768px) {
+            .hero { padding-top: 110px; }
+            .card-servicio { flex-direction: column; align-items: center; text-align: center; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .form-compra-abajo { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-name">ANIBAL<span>.DEV</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#hacer-pedido">Hacer Pedido</a></li>
+                <li><a href="https://wa.me/595981752804" target="_blank">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <a href="https://wa.me/595981752804" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- --- SECCIÓN HERO LIMPIA --- -->
+    <section class="hero">
+        <div class="hero-text">
+            <div class="badge-24h">🚀 ENVIOS EXPRÉS A TODO PARAGUAY</div>
+            <h1>PÁGINA WEB<br>PROFESIONAL</h1>
+            <p>Diseños optimizados, ultra rápidos y listos para hacer crecer tu marca o negocio en internet de forma automática.</p>
+            <a href="#hacer-pedido" class="btn-comenzar">Iniciar Solicitud <i class="fas fa-chevron-down" style="margin-left: 5px;"></i></a>
+        </div>
+    </section>
+
+    <section class="que-ofrecemos">
+        <h2>Servicios Especializados</h2>
+        <div class="grid-detalles">
+            <div class="item-detalle"><i class="fas fa-laptop-code"></i><h3>Páginas Web</h3><p>Presencia digital profesional para que tus clientes te encuentren fácilmente en la web.</p></div>
+            <div class="item-detalle"><i class="fas fa-shopping-basket"></i><h3>Tiendas Online</h3><p>Vendé tus productos las 24 horas con sistemas de carrito de compras automáticos.</p></div>
+            <div class="item-detalle"><i class="fas fa-search-location"></i><h3>SEO Profesional</h3><p>Aparecé en los primeros lugares de los motores de búsqueda de forma estratégica.</p></div>
+        </div>
+    </section>
+
+    <section class="que-hacemos">
+        <div class="grid-servicios">
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-clock"></i></div><div><h3>Entrega en 24 Horas</h3><p>Tu negocio no puede esperar. Lanzamos tu sitio en tiempo récord con calidad garantizada.</p></div></div>
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-layer-group"></i></div><div><h3>Dominio Incluido</h3><p>Registramos tu nombre propio en la web para que tengas identidad profesional única.</p></div></div>
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-server"></i></div><div><h3>Hosting Ilimitado</h3><p>Potencia y espacio sin restricciones para que tu web vuele y nunca se caiga.</p></div></div>
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-mobile-alt"></i></div><div><h3>Diseño Responsivo</h3><p>Tu página se adaptará perfectamente a celulares, tablets y computadoras de escritorio.</p></div></div>
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-shield-alt"></i></div><div><h3>Certificado SSL</h3><p>Seguridad total para tus visitantes con el candado verde y navegación encriptada.</p></div></div>
+            <div class="card-servicio"><div class="icon-container"><i class="fas fa-rocket"></i></div><div><h3>Landing Express</h3><p>Estrategias de una sola página diseñadas específicamente para convertir visitas en ventas.</p></div></div>
+        </div>
+    </section>
+
+    <!-- --- SECCIÓN DEL FORMULARIO ABAJO --- -->
+    <section id="hacer-pedido" class="seccion-pedido">
+        <h2>SOLICITÁ TU SITIO WEB AQUÍ</h2>
+        <p>Completá el formulario para generar tu orden de desarrollo. Te llegará un correo instantáneo.</p>
+        
+        <form id="form-compra" class="form-compra-abajo">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre *</label>
+                    <input type="text" id="nombre" required placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos *</label>
+                    <input type="text" id="apellidos" required placeholder="Tus apellidos">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="telefono">Teléfono / WhatsApp *</label>
+                    <input type="tel" id="telefono" required placeholder="Ej: 0981XXXXXX">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input type="email" id="email" required placeholder="tu-correo@gmail.com">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="notas">Detalles del proyecto o notas adicionales (Opcional)</label>
+                <textarea id="notas" placeholder="Escribí acá qué tipo de página web necesitás..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-enviar-pedido">
+                <i class="fas fa-paper-plane"></i> Confirmar Pedido por Correo
+            </button>
+        </form>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Nosotros</h4>
+                <p>Impulsamos el éxito de emprendimientos, empresas y creadores mediante soluciones de software avanzadas, código limpio y alta optimización.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Blog & Dudas</h4>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)"><span>¿Qué es el SEO?</span><i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Es la optimización para motores de búsqueda, permitiendo que tu web aparezca en los primeros lugares de Google de manera orgánica.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)"><span>¿Cómo se realiza el pago?</span><i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Aceptamos transferencias bancarias y pagos digitales a través de plataformas integradas de forma rápida, cómoda y totalmente segura.</div>
+                    </div>
+                </div>
+                
+                <div class="dev-card">
+                    <div class="dev-img"><i class="fas fa-user"></i></div>
+                    <div class="dev-info"><span>Desarrollador Principal</span><br><b>Luis Anibal Aguilera</b></div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Promociones</h4>
+                <p><i class="fas fa-shopping-cart" style="color:var(--azul-brillo)"></i> Tiendas: 120.000 Gs.</p>
+                <p><i class="fas fa-rocket" style="color:var(--azul-brillo)"></i> Landings: 200.000 Gs.</p>
+            </div>
+        </div>
+
+        <div class="pagos-container">
+            <h5>MÉTODOS DE PAGO</h5>
+            <div class="metodos-pago">
+                <img src="https://www.bancard.com.py/storage/app/media/marcas/Mango.png" alt="Mango App" class="mango-logo">
+            </div>
+            <p style="margin-top: 30px; opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Sitios Web Paraguay. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- --- JAVASCRIPT --- -->
+    <script>
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+        }
+
+        async function enviarPedido(event) {
+            event.preventDefault();
+
+            const datosPedido = {
+                nombre: document.getElementById('nombre').value,
+                apellidos: document.getElementById('apellidos').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
+                notas: document.getElementById('notas').value || "Sin observaciones",
+                producto: "Desarrollo Web Express",
+                total: "Cotización pendiente",
+                metodoPago: "Bancard Mango / Transferencia"
+            };
+
+            try {
+                const respuesta = await fetch('http://localhost:3000/api/nuevo-pedido', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(datosPedido)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (resultado.OK) {
+                    alert('¡Excelente! Tu pedido de sitio web fue enviado con éxito. Revisá tu mail ahora.');
+                    document.getElementById('form-compra').reset();
+                } else {
+                    alert('El servidor respondió pero ocurrió un error enviando el email.');
+                }
+            } catch (error) {
+                console.error("Fallo de conexión:", error);
+                alert('No se detectó el servidor. Asegurate de tener encendido node server.js');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const formulario = document.getElementById('form-compra');
+            if (formulario) {
+                formulario.addEventListener('submit', enviarPedido);
+            }
+        });
+    </script>
+</body>
+</html>
